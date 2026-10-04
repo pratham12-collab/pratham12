@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Level Up | PRATHAM CHAURASIYA</title>
+  <!-- Pixel game font (falls back to monospace if offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="levelup.css" />
+</head>
+<body>
+
+<!-- ============ HUD: sticky bar at the top, like a game screen ============
+     The yellow XP bar fills up as you scroll down the page (see CSS).  -->
+<header class="hud">
+  <span class="player">P1 &bull; PRATHAM </span>
+  <div class="xp"><div class="xp-fill"></div></div>
+  <span class="coins">🪙 x05</span>
+</header>
+<!-- ============ LEVEL 0: TITLE SCREEN ============ -->
+<section class="screen title" id="title">
+  <p class="small">IIIT GUWAHATI PRESENTS</p>
+  <h1>LEVEL<br/>UP!</h1>
+  <p class="sub">The Story of <b>PRATHAM</b></p>
+  <a href="#character" class="start blink">&#9654; PRESS START</a>
+  <p class="small copy">&copy; 2026 TECH CLUB EDITION</p>
+  <span class="coin c1"></span><span class="coin c2"></span><span class="coin c3"></span>
+</section>
+
+<!-- ============ LEVEL 1: CHARACTER SELECT (About me) ============ -->
+<section class="screen" id="character">
+  <h2><span class="lv">LV 1</span> CHARACTER SELECT</h2>
+  <div class="grid two">
+    <div class="box reveal center">
+      <div class="avatar"><img src="Pratham.jpeg" alt="Pratham"></div> <!-- Replace with <img src="me.jpg" alt="me"> -->
+      <h3>PRATHAM</h3>
+      <p class="class">CLASS: B.Tech Student</p>
+      <p class="class">GUILD: Tech Club</p>
+    </div>
+    <div class="box reveal">
+      <h3>BIO</h3>
+      <p>Hi! I'm a first year B.Tech student at IIIT Guwahati. I'm from Utter-Pradesh, i love coding and building cool projects. Currently I didnt have any projects to show off, but learning things to build some. Also aside studies i love to play games, exploring new things and making new friends.</p>
+      <h3>STATS</h3>
+      <!-- --v sets how full each bar is -->
+      <div class="stat"><span>CODING</span><div class="bar"><i style="--v:55%"></i></div></div>
+      <div class="stat"><span>CREATIVITY</span><div class="bar"><i style="--v:80%"></i></div></div>
+      <div class="stat"><span>TEAMWORK</span><div class="bar"><i style="--v:90%"></i></div></div>
+      <div class="stat"><span>CHAI POWER</span><div class="bar"><i style="--v:100%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEVEL 2: INVENTORY (Skills) ============ -->
+<section class="screen" id="inventory">
+  <h2><span class="lv">LV 2</span> INVENTORY</h2>
+  <p class="hint">Hover over an item to inspect it.</p>
+  <div class="slots reveal">
+    <div class="slot" data-tip="HTML: builds the skeleton">🧱</div>
+    <div class="slot" data-tip="CSS: makes it beautiful">🎨</div>
+    <div class="slot" data-tip="C/C++: the power tool">⚔️</div>
+    <div class="slot" data-tip="Python: the magic wand">🪄</div>
+    <div class="slot" data-tip="JavaScript: LOCKED (coming soon)">🔒</div>
+    <div class="slot" data-tip="Git: the time machine">⏳</div>
+    <div class="slot" data-tip="Curiosity: +100 learning speed">🧪</div>
+    <div class="slot empty" data-tip="Empty slot: add your own skill!">+</div>
+  </div>
+</section>
+
+<!-- ============ LEVEL 3: QUEST LOG (Journey + Experience) ============ -->
+<section class="screen" id="quests">
+  <h2><span class="lv">LV 3</span> QUEST LOG</h2>
+  <div class="quests">
+    <div class="quest reveal done">
+      <b>MAIN QUEST: Enter IIIT Guwahati</b>
+      <span class="badge">COMPLETE</span>
+      <p>Cleared the entrance exam and started B.Tech in 2026.</p>
+    </div>
+    <div class="quest reveal active">
+      <b>SIDE QUEST: Join Tech Club</b>
+      <span class="badge">IN PROGRESS</span>
+      <p>Learning HTML and CSS. Boss fight: build this website.</p>
+    </div>
+    <div class="quest reveal active">
+      <b>SIDE QUEST: Your Experience</b>
+      <span class="badge">IN PROGRESS</span>
+      <p>Write a project, competition or club activity you have done.</p>
+    </div>
+    <div class="quest reveal locked">
+      <b>FUTURE QUEST: Win a Hackathon</b>
+      <span class="badge">LOCKED</span>
+      <p>Requires: JavaScript, teammates, and a lot of snacks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEVEL 4: ACHIEVEMENTS (Fun facts) ============ -->
+<section class="screen" id="achievements">
+  <h2><span class="lv">LV 4</span> ACHIEVEMENTS</h2>
+  <div class="grid three">
+    <div class="box reveal center"><div class="medal">🎧</div><h3>MUSIC LOVER</h3><p>I love listening seedhe maut and many bollywood songs depending on my mood.</p></div>
+    <div class="box reveal center"><div class="medal">🎮</div><h3>PLAYER ONE</h3><p>I love playing valorant and exploring new games.</p></div>
+    <div class="box reveal center"><div class="medal">🐛</div><h3>BUG HUNTER</h3><p>Bugs found so far: infinity.</p></div>
+  </div>
+</section>
+
+<!-- ============ FINAL LEVEL: CONTINUE? (Contact) ============ -->
+<section class="screen center" id="continue">
+  <h2><span class="lv">FINAL</span> CONTINUE?</h2>
+  <!-- The countdown number is pure CSS (see .countdown in levelup.css) -->
+  <div class="countdown"></div>
+  <p class="hint">Don't let the timer run out. Contact me!</p>
+  <div class="btns">
+    <a class="btn" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">&#9654; Email</a>
+    <a class="btn" href="https://github.com/pratham12-collab" target="_blank">&#9654; GITHUB</a>
+    <a class="btn" href="https://www.linkedin.com/in/pratham-chaurasiya-6428a9414/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bzb5orPtcTQmt4ZdX%2B3awbg%3D%3D" target="_blank">&#9654; LINKEDIN</a>
+  </div>
+  <p class="small copy">THANKS FOR PLAYING! &hearts;</p>
+</section>
+
+</body>
+</html>

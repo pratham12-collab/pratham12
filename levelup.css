@@ -1,0 +1,232 @@
+/* ========== 1. COLORS ========== */
+:root {
+  --bg: #120c2b;
+  --panel: #1e1547;
+  --neon: #00ffa3;
+  --pink: #ff3d9a;
+  --yellow: #ffd23f;
+  --blue: #3dd5ff;
+  --text: #f4f0ff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+
+body {
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--text);
+  background: var(--bg);
+  /* Twinkling star field made of tiny dots */
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 90px 120px, var(--blue), transparent),
+    radial-gradient(1px 1px at 160px 60px, #fff, transparent),
+    radial-gradient(2px 2px at 220px 160px, var(--pink), transparent);
+  background-size: 250px 200px;
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ========== 2. HUD (sticky top bar + XP bar) ========== */
+.hud {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: #000;
+  border-bottom: 4px solid var(--neon);
+  font-size: 10px;
+}
+.player { color: var(--neon); white-space: nowrap; }
+.coins { color: var(--yellow); white-space: nowrap; }
+.xp {
+  flex: 1; height: 14px;
+  border: 3px solid #fff; background: #222;
+}
+.xp-fill { height: 100%; width: 100%; background: var(--yellow); }
+
+/* Scroll-driven animation: the bar grows as you scroll the page.
+   (Works in new Chrome/Edge. Other browsers just show a full bar.) */
+@supports (animation-timeline: scroll()) {
+  .xp-fill {
+    width: 0;
+    animation: fillxp linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes fillxp { to { width: 100%; } }
+
+/* ========== 3. SCREENS (each section = one game level) ========== */
+.screen {
+  min-height: 100vh;
+  padding: 5rem 8% 4rem;
+  scroll-snap-align: start;
+  position: relative;
+}
+.screen h2 {
+  font-size: 1.1rem; color: var(--neon);
+  margin-bottom: 2rem;
+  text-shadow: 3px 3px 0 #000;
+}
+.lv {
+  background: var(--pink); color: #fff;
+  padding: 0.3rem 0.6rem; margin-right: 0.8rem;
+  box-shadow: 3px 3px 0 #000;
+}
+.center { text-align: center; }
+.hint { color: var(--blue); margin-bottom: 1.5rem; }
+.small { font-size: 9px; color: #aaa; }
+.copy { margin-top: 3rem; }
+
+/* ========== 4. TITLE SCREEN ========== */
+.title {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 1.4rem; padding-top: 3rem;
+  overflow: hidden;
+}
+.title h1 {
+  font-size: clamp(2.8rem, 12vw, 6rem);
+  line-height: 1.2;
+  color: var(--yellow);
+  /* stacked shadows give a chunky 3D pixel look */
+  text-shadow: 4px 4px 0 var(--pink), 8px 8px 0 #000;
+  animation: bob 2.5s ease-in-out infinite;
+}
+@keyframes bob { 50% { transform: translateY(-12px); } }
+.sub { color: var(--blue); }
+.start {
+  padding: 1rem 1.6rem; background: var(--neon); color: #000;
+  box-shadow: 5px 5px 0 #000; font-size: 14px;
+}
+.start:hover { background: #fff; }
+.blink { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0.35; } }
+
+/* Spinning pixel coins floating around */
+.coin {
+  position: absolute; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--yellow); border: 4px solid #b8860b;
+  animation: spin 1.2s linear infinite, drift 6s ease-in-out infinite;
+}
+.c1 { top: 22%; left: 12%; }
+.c2 { top: 60%; right: 14%; animation-delay: 0.3s, 1s; }
+.c3 { top: 78%; left: 28%; animation-delay: 0.6s, 2s; }
+@keyframes spin  { 50% { transform: scaleX(0.15); } }
+@keyframes drift { 50% { top: calc(var(--t, 0) + 24px); } }
+
+/* ========== 5. BOXES, GRIDS ========== */
+.grid { display: grid; gap: 1.6rem; }
+.grid.two   { grid-template-columns: 1fr 1.6fr; }
+.grid.three { grid-template-columns: repeat(3, 1fr); }
+.box {
+  background: var(--panel);
+  border: 4px solid #fff;
+  box-shadow: 8px 8px 0 #000;
+  padding: 1.4rem;
+}
+.box h3 { color: var(--yellow); font-size: 12px; margin: 0.8rem 0 0.6rem; }
+.class { color: var(--blue); font-size: 10px; }
+
+.avatar {
+  font-size: 4.5rem; width: 130px; height: 130px; margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  border: 4px solid #fff; box-shadow: 6px 6px 0 #000;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Stat bars made of chunky blocks */
+.stat { margin: 0.9rem 0; font-size: 10px; }
+.bar { height: 16px; border: 3px solid #fff; background: #111; margin-top: 0.3rem; }
+.bar i {
+  display: block; height: 100%; width: var(--v);
+  background: repeating-linear-gradient(90deg, var(--neon) 0 10px, transparent 10px 13px);
+  animation: grow 1.5s steps(12) both;
+}
+@keyframes grow { from { width: 0; } }
+
+/* ========== 6. INVENTORY SLOTS ========== */
+.slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 560px; }
+.slot {
+  position: relative; aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+  background: var(--panel); border: 4px solid #fff; box-shadow: 5px 5px 0 #000;
+  cursor: help; transition: transform 0.15s;
+}
+.slot:hover { transform: translate(-3px, -3px); border-color: var(--yellow); }
+.slot.empty { color: #777; border-style: dashed; }
+/* Tooltip built from the data-tip attribute */
+.slot::after {
+  content: attr(data-tip);
+  position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+  width: max-content; max-width: 220px;
+  background: #000; color: var(--yellow); border: 3px solid var(--yellow);
+  padding: 0.5rem 0.7rem; font-size: 9px; line-height: 1.6;
+  opacity: 0; pointer-events: none; transition: opacity 0.15s;
+  z-index: 5;
+}
+.slot:hover::after { opacity: 1; }
+
+/* ========== 7. QUEST LOG ========== */
+.quests { display: grid; gap: 1.4rem; max-width: 760px; }
+.quest {
+  background: var(--panel); border: 4px solid #fff; box-shadow: 6px 6px 0 #000;
+  padding: 1.2rem; position: relative;
+}
+.quest b { display: block; color: var(--yellow); margin-bottom: 0.4rem; }
+.badge {
+  position: absolute; top: -14px; right: 12px;
+  padding: 0.3rem 0.6rem; font-size: 9px; color: #000; background: #aaa;
+  box-shadow: 3px 3px 0 #000;
+}
+.quest.done   { border-color: var(--neon); }  .done .badge   { background: var(--neon); }
+.quest.active { border-color: var(--yellow); } .active .badge { background: var(--yellow); }
+.quest.locked { opacity: 0.6; border-style: dashed; }
+.quest p { font-size: 10px; }
+
+/* ========== 8. ACHIEVEMENTS ========== */
+.medal { font-size: 3rem; animation: bob 2s ease-in-out infinite; }
+.box p { font-size: 10px; }
+
+/* ========== 9. FINAL SCREEN + CSS-ONLY COUNTDOWN ========== */
+#continue { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+@property --n { syntax: "<integer>"; initial-value: 9; inherits: false; }
+.countdown {
+  font-size: 6rem; color: var(--pink);
+  text-shadow: 5px 5px 0 #000;
+  animation: count 10s steps(9) infinite;
+  counter-reset: n var(--n);
+  margin-bottom: 1.4rem;
+}
+.countdown::after { content: counter(n); }
+@keyframes count { from { --n: 9; } to { --n: 0; } }
+
+.btns { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; margin-top: 1rem; }
+.btn {
+  padding: 1rem 1.4rem; background: var(--neon); color: #000;
+  box-shadow: 5px 5px 0 #000; transition: transform 0.1s;
+}
+.btn:hover { background: var(--yellow); transform: translate(-3px, -3px); box-shadow: 8px 8px 0 #000; }
+.btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #000; }
+
+/* ========== 10. SCROLL REVEAL (boxes pop in as you reach them) ========== */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: pop linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+@keyframes pop { from { opacity: 0; transform: translateY(60px) scale(0.92); } }
+
+/* ========== 11. RESPONSIVE (phones) ========== */
+@media (max-width: 760px) {
+  body { font-size: 10px; }
+  .grid.two, .grid.three { grid-template-columns: 1fr; }
+  .slots { grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+  .slot { font-size: 1.4rem; }
+  .hud { font-size: 8px; gap: 0.6rem; }
+  .screen h2 { font-size: 0.9rem; }
+}
